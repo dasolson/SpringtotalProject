@@ -25,8 +25,8 @@ pipeline {
 		// 감지 = main push(commit)
 		stage('Check Out') {
 			steps {
-				git branch: 'main',
-				    url: 'https://github.com/dasolson/SpringtotalProject.git'
+				echo 'Git Checkout'
+				checkout scm
 			}
 		}
 		
@@ -64,7 +64,7 @@ pipeline {
 			steps {
 				sshagent(credentials:['SERVER_SSH_KEY']) {
 					sh '''
-						ssh -o StrictHostChecking=no ${SERVER+USER}@${SERVER_IP} << 'EOF'
+						ssh -o StrictHostKeyChecking=no ${SERVER+USER}@${SERVER_IP} << 'EOF'
 						   pkill -f 'java -jar' || true
 						   nohup java -jar ${APP_DIR}/${JAR_NAME} > log.txt 2>&1 &
 						EOF
