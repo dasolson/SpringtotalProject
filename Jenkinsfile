@@ -1,12 +1,6 @@
 pipeline {
 	agent any
-	stages {
-		stage('Git Check Test') {
-			steps {
-				git branch: 'main'				
-			}
-		}
-		
+	stages {		
 		stage('Check Git Info') {
 			steps {
 				sh '''
